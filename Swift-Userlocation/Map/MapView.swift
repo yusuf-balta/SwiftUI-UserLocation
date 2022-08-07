@@ -5,11 +5,21 @@
 //  Created by Yusuf Balta on 4.08.2022.
 //
 
+import MapKit
 import SwiftUI
 
 struct MapView: View {
+    @StateObject private var viewModel = MapViewModel()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Map(
+            coordinateRegion: $viewModel.region,
+            showsUserLocation: true
+        )
+            .ignoresSafeArea()
+            .accentColor(Color(.systemPink))
+            .onAppear{
+                viewModel.checkIfLocationServiceIsEnabled()
+            }
     }
 }
 
